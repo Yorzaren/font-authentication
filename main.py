@@ -1,16 +1,17 @@
-# This is a sample Python script.
+from zh import ZH_ALL as chinese_simplified
+from zh import HSK as HSK
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+print(chinese_simplified)
+print(len(HSK))
+print(len(chinese_simplified))
+print("----------------")
+print(ord("诗"))
+print(ord("Z"))
 
+str1 = "诗"
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import codecs
+print(codecs.raw_unicode_escape_encode(str1))
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(str1.encode("raw_unicode_escape"))
+print(str1.encode("unicode_escape"))
