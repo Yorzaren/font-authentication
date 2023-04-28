@@ -1,17 +1,26 @@
 from zh import ZH_ALL as chinese_simplified
 from zh import HSK as HSK
 
-print(chinese_simplified)
-print(len(HSK))
-print(len(chinese_simplified))
-print("----------------")
-print(ord("诗"))
-print(ord("Z"))
 
 str1 = "诗"
-
-import codecs
-print(codecs.raw_unicode_escape_encode(str1))
+str1 = "bsdfsdf诗WSD"
 
 print(str1.encode("raw_unicode_escape"))
-print(str1.encode("unicode_escape"))
+print(str(str1.encode("unicode_escape")))
+
+
+def convert_to_utf(input_char: str):
+    return str(input_char.encode("raw_unicode_escape").decode("utf-8")).split("u")[1]
+
+#print(convert_to_utf(str1))
+#print(convert_to_utf("A"))
+
+
+"""
+This seems to indicate I can just name the files X.svg and it will import.
+
+I think there's a visual glitch so its not showing the correct chinese character 
+in the BirdFont gui.
+
+https://birdfont.org/doku/doku.php/import_multiple_svg_files
+"""
