@@ -21,7 +21,7 @@ def generate_dict(input_string: str, output_file: str):
     character_array = []
 
     # Take the imported characters and the add them to an array
-    for x in CHINESE_SIMPLIFIED:
+    for x in input_string:
         character_array.append(x)
 
     # Debugging messages
