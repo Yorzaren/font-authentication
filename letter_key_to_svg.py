@@ -18,10 +18,11 @@ def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="
     parent_dir = output_folder
     letter_dir_src = input_glyphs
 
+    # Remove the old folder if it exists
     if os.path.exists(parent_dir):
         shutil.rmtree(parent_dir)
-    else:
-        os.makedirs(parent_dir)
+    # Make a new folder
+    os.makedirs(parent_dir)
 
     if split_folders:
         # A-Z make folders and then add the glyphs
@@ -57,7 +58,7 @@ def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="
 
             # Now copy the symbols into the folder
             this_letter = keys.split("_")[1]
-            print(this_letter)
+            print("Creating svg data related to: " + this_letter)
 
             for char in data[keys]:
                 shutil.copy(letter_dir_src + "/" + this_letter + ".svg", parent_dir + "/" + char + ".svg")
