@@ -15,6 +15,8 @@ name: Lint Code Base
 # Start the job on all push #
 #############################
 on:
+  push:
+    branches: [master, main]
   pull_request:
     branches: [master, main]
 
@@ -51,7 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BRANCH: main
           # Default: false and only checks changed/new files
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_JAVASCRIPT_STANDARD: false # I dont like this linter
           VALIDATE_PYTHON_BLACK: false # Just run it as black -l 120 .
           VALIDATE_PYTHON_ISORT: false # Just run manually
