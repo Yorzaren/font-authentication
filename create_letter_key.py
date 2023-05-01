@@ -10,10 +10,9 @@ for x in string.ascii_uppercase:
 
 """
 
-import string
 import json
-from zh import ZH_ALL as CHINESE_SIMPLIFIED
-from zh import HSK as HSK
+# from zh import ZH_ALL as CHINESE_SIMPLIFIED
+# from zh import HSK as HSK
 import random  # Consider the benefits of swapping to cryptorandom
 
 
@@ -152,9 +151,10 @@ def generate_dict(input_string: str, output_file: str):
     letter_key["letter_Z"] = letter_Z
 
     # Write it to a file
-    with open(output_file, 'w', encoding="utf-8") as text_file:
+    with open(output_file, "w", encoding="utf-8") as text_file:
         text_file.write(json.dumps(letter_key))
 
 
-if __name__ == '__main__':
-    generate_dict(CHINESE_SIMPLIFIED, "dict.txt")
+if __name__ == "__main__":
+    print("Called create_letter_key.py")
+    # generate_dict(CHINESE_SIMPLIFIED, "dict.txt")

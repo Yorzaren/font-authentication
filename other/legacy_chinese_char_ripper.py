@@ -5,11 +5,12 @@
 # Keep this just in case you need to regenerate it.
 
 import csv
+
 output = ""
 
-with open('hanziDB.csv', encoding='utf-8') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for row in csv_reader:
-            output = output + (row[1])
+with open("hanziDB.csv", encoding="utf-8") as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=",")
+    for row in csv_reader:
+        output = output + (row[1])
 
 print(output)

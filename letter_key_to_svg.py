@@ -4,13 +4,13 @@ import shutil
 
 
 def write_letter_file(output_location, file_text):
-    with open(output_location, 'w', encoding="utf-8") as text_file:
+    with open(output_location, "w", encoding="utf-8") as text_file:
         text_file.write(file_text)
 
 
 def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="letters-1", split_folders=False):
     # Open the text file with the data
-    with open(source_file, 'r', encoding="utf-8") as f:
+    with open(source_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     # print(data)
@@ -37,14 +37,14 @@ def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="
                 full_string = full_string + char
 
             # Write a file to help test that the font will work.
-            write_letter_file(this_folder+"/"+keys+".txt", full_string)
+            write_letter_file(this_folder + "/" + keys + ".txt", full_string)
 
             # Now copy the symbols into the folder
             this_letter = keys.split("_")[1]
             print(this_letter)
 
             for char in data[keys]:
-                shutil.copy(letter_dir_src+"/"+this_letter+".svg", this_folder+"/"+char+".svg")
+                shutil.copy(letter_dir_src + "/" + this_letter + ".svg", this_folder + "/" + char + ".svg")
     # Toss everything into the main output folder
     else:
         for keys in data:
@@ -64,5 +64,5 @@ def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="
                 shutil.copy(letter_dir_src + "/" + this_letter + ".svg", parent_dir + "/" + char + ".svg")
 
 
-if __name__ == '__main__':
-    generate_svg_folder("dict.txt", split_folders=False)
+if __name__ == "__main__":
+    generate_svg_folder("dict2.txt", split_folders=False)
