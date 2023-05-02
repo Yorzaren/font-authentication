@@ -33,11 +33,10 @@ class TestLetterKey:
         generate_dict(SIMPLE_LETTERS, "simpleScrambled.txt")
 
     def test_scramble_key(self):
-        # It's easier to just compare the bytes on this than to hash it.
-        assert filecmp.cmp("simpleKey.txt", "simpleKey.txt") is True
+        assert hash_file("simpleKey.txt") == hash_file("simpleKey.txt")
 
         # Check that the scrambled and the unscrambled keys are not the same.
-        assert filecmp.cmp("simpleKey.txt", "simpleScrambled.txt") is False
+        assert hash_file("simpleKey.txt") != hash_file("simpleScrambled.txt")
 
     def test_letter_key_to_svg(self):
         letter_dir = "letters-1"
