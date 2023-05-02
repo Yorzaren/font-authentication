@@ -1,3 +1,13 @@
+"""
+https://birdfont.org/doku/doku.php/import_multiple_svg_files
+
+This seems to indicate I can just name the files X.svg and it will import.
+
+I think there's a visual glitch so its not showing the correct chinese character
+in the BirdFont gui.
+"""
+
+
 import json
 import os
 import shutil
@@ -64,5 +74,5 @@ def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="
                 shutil.copy(letter_dir_src + "/" + this_letter + ".svg", parent_dir + "/" + char + ".svg")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     generate_svg_folder("dict2.txt", split_folders=False)

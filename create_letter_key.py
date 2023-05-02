@@ -11,12 +11,10 @@ for x in string.ascii_uppercase:
 """
 
 import json
-# from zh import ZH_ALL as CHINESE_SIMPLIFIED
-# from zh import HSK as HSK
 import random  # Consider the benefits of swapping to cryptorandom
 
 
-def generate_dict(input_string: str, output_file: str):
+def generate_dict(input_string: str, output_file: str, scramble=True):
     character_array = []
 
     # Take the imported characters and the add them to an array
@@ -29,11 +27,12 @@ def generate_dict(input_string: str, output_file: str):
     print(character_array)
 
     # Shuffle array
-    random.shuffle(character_array)
+    if scramble is True:
+        random.shuffle(character_array)
 
-    # Check that it is scrambled
-    print("Scrambled array:")
-    print(character_array)
+        # Check that it is scrambled
+        print("Scrambled array:")
+        print(character_array)
 
     # Create the dictionary
     letter_key = {}
@@ -153,8 +152,3 @@ def generate_dict(input_string: str, output_file: str):
     # Write it to a file
     with open(output_file, "w", encoding="utf-8") as text_file:
         text_file.write(json.dumps(letter_key))
-
-
-if __name__ == "__main__":
-    print("Called create_letter_key.py")
-    # generate_dict(CHINESE_SIMPLIFIED, "dict.txt")
