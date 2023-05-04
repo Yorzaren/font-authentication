@@ -3,6 +3,8 @@ import json
 import os
 import string
 
+import pytest
+
 from create_letter_key import generate_dict
 from letter_key_to_svg import generate_svg_folder
 
@@ -24,6 +26,7 @@ def hash_file(filename):  # Simple Hash function
 
 
 class TestLetterKey:
+    @pytest.mark.order(1)
     def test_create_simple_letter_key(self):
         SIMPLE_LETTERS = string.ascii_letters
         # Create a key where they are assigned in order
@@ -31,12 +34,14 @@ class TestLetterKey:
         generate_dict(SIMPLE_LETTERS, "simpleKey.txt", scramble=False)
         generate_dict(SIMPLE_LETTERS, "simpleScrambled.txt")
 
+    @pytest.mark.order(2)
     def test_scramble_key(self):
         assert hash_file("simpleKey.txt") == hash_file("simpleKey.txt")
 
         # Check that the scrambled and the unscrambled keys are not the same.
         assert hash_file("simpleKey.txt") != hash_file("simpleScrambled.txt")
 
+    @pytest.mark.order(3)
     def test_letter_key_to_svg(self):
         letter_dir = "letters-1"
 
