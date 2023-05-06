@@ -4,3 +4,8 @@ pytest-order
 black
 isort
 flake8
+
+# Flask related stuff for the front end
+Flask
+Flask-Session
+Flask-SQLAlchemy
