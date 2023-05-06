@@ -24,4 +24,4 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JAVASCRIPT_STANDARD: false # I dont like this linter
           VALIDATE_PYTHON_BLACK: false # Just run it as black -l 120 .
-          VALIDATE_PYTHON_ISORT: false # Just run manually 
+          VALIDATE_PYTHON_ISORT: false # Just run manually
