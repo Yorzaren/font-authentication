@@ -99,3 +99,16 @@ code {
 	padding: 15px;
 	margin: 10px 30px;
 }
+
+.validation-code {
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background: #fff;
+	color: #000;
+	font-size: 26px;
+	text-align: center;
+	display: table;
+	padding: 15px;
+	margin: 15px;
+}

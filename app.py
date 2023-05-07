@@ -6,6 +6,8 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
+from validator import generate_simple_code
+
 # create the extension
 db = SQLAlchemy()
 
@@ -36,7 +38,7 @@ def index():
 
 @app.route("/simple")
 def simple():
-    the_code = "asdf"
+    the_code = generate_simple_code(6)
     session["simple_val"] = the_code
     return render_template("validation/simple.html.jinja", title="Simple Validation", validation_code=the_code)
 
