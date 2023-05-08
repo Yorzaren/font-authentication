@@ -1,4 +1,4 @@
-import zh
+import font_generator.zh as zh
 
 
 class TestZh:
