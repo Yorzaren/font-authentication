@@ -6,7 +6,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
-from validator import generate_hard_code, generate_simple_code
+from web.validator import generate_hard_code, generate_simple_code
 
 # create the extension
 db = SQLAlchemy()
