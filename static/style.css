@@ -1,0 +1,119 @@
+:root {
+	--background: #000;
+	--accent: #800020;
+	--accent-highlight: #660019;
+	--accent-focused: #590016;
+	--model: #5e597e;
+	--off-white: #f0f0f0;
+	--warning: #ffc107;
+}
+
+body {
+	background: var(--background);
+	color: #faf9f6;
+}
+
+#section {
+	background: #111;
+	border: 1px solid var(--accent);
+	padding: 20px 35px 40px 35px;
+	border-top: none;
+	border-bottom: none;
+	margin-top: 55px;
+	min-height: calc(100vh - 96px); /* Help position the footer */
+}
+
+#login-container {
+	width: 50%;
+}
+
+footer {
+	width: 100%;
+	height: 40px;
+	background: var(--accent);
+}
+
+footer p {
+	height: 25px;
+	line-height: 40px;
+}
+
+.btn-primary {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+.btn-primary:hover {
+	background: var(--accent-highlight);
+	border-color: var(--accent-highlight);
+}
+
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+	background: var(--accent-focused);
+	border-color: var(--accent-focused);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+	background: var(--accent);
+}
+
+#add-user,
+#delete-user,
+#unlock-user,
+#change-password {
+	border: 1px solid var(--accent);
+	border-radius: 5px;
+	padding: 35px;
+	margin: 10px 30px;
+	background: var(--model);
+}
+
+#password-policy,
+#username-policy,
+#unlock-info {
+	background: var(--background);
+	padding: 15px;
+	margin: 10px 30px;
+}
+
+.strike {
+	display: none;
+	text-decoration: line-through;
+	opacity: 0.7;
+}
+
+code {
+	padding: 2px;
+	background: var(--off-white);
+	border-radius: 5px;
+	border: 1px solid;
+}
+
+.warning {
+	background: var(--warning);
+	padding: 15px;
+	margin: 10px 30px;
+}
+
+.validation-code {
+	user-select: none;
+	background: #fff;
+	color: #000;
+	font-size: 26px;
+	text-align: center;
+	display: table;
+	padding: 15px;
+	margin: 15px;
+}
+
+@font-face{
+	font-family: "font1";
+	src: url("font1.ttf");
+	font-weight: regular;
+	size-adjust: 250%;
+}
