@@ -101,8 +101,6 @@ code {
 }
 
 .validation-code {
-	-webkit-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	background: #fff;
 	color: #000;
@@ -114,7 +112,8 @@ code {
 }
 
 @font-face{
-	font-family: font1;
-	src: url('font1.ttf');
+	font-family: "font1";
+	src: url("font1.ttf");
 	font-weight: regular;
+	size-adjust: 250%;
 }
