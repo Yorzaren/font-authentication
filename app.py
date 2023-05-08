@@ -6,7 +6,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
-from validator import generate_simple_code
+from validator import generate_hard_code, generate_simple_code
 
 # create the extension
 db = SQLAlchemy()
@@ -57,12 +57,44 @@ def simple_validation():
 
 @app.route("/hard")
 def hard():
-    return render_template("validation/hard.html.jinja", title="Harder Validation")
+    code_array = generate_hard_code(6, "font1.txt")
+    private_code = code_array[0]
+    public_code = code_array[1]
+    session["hard_val"] = private_code
+    return render_template("validation/hard.html.jinja", title="Harder Validation", validation_code=public_code)
+
+
+@app.route("/hard_validation", methods=["POST"])
+def hard_validation():
+    # Get the info from the form
+    user_input = request.form["validation"]
+    if user_input == session["hard_val"]:  # they have passes the validation
+        flash("Validation successful")
+        return render_template("page.html.jinja", info=user_input)
+    else:
+        flash("Validation failed")
+        return redirect(url_for("hard"))
 
 
 @app.route("/hardest")
 def hardest():
-    return render_template("validation/hardest.html.jinja", title="Hardest Validation")
+    code_array = generate_hard_code(6, "dict.txt")
+    private_code = code_array[0]
+    public_code = code_array[1]
+    session["hardest_val"] = private_code
+    return render_template("validation/hardest.html.jinja", title="Hardest Validation", validation_code=public_code)
+
+
+@app.route("/hardest_validation", methods=["POST"])
+def hardest_validation():
+    # Get the info from the form
+    user_input = request.form["validation"]
+    if user_input == session["hardest_val"]:  # they have passes the validation
+        flash("Validation successful")
+        return render_template("page.html.jinja", info=user_input)
+    else:
+        flash("Validation failed")
+        return redirect(url_for("hardest"))
 
 
 @app.route("/set/<value>")

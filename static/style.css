@@ -112,3 +112,9 @@ code {
 	padding: 15px;
 	margin: 15px;
 }
+
+@font-face{
+	font-family: font1;
+	src: url('font1.ttf');
+	font-weight: regular;
+}

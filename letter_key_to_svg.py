@@ -75,4 +75,4 @@ def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="
 
 
 if __name__ == "__main__":  # pragma: no cover
-    generate_svg_folder("dict2.txt", split_folders=False)
+    generate_svg_folder("simpleScrambled.txt", split_folders=False)
