@@ -31,7 +31,7 @@ def generate_hard_code(length: int, source_file):
     for i in range(0, length):  # Do it length times
         this_letter = random.choice(string.ascii_uppercase)
         private_code += this_letter
-        public_code += random.choice(letter_map.get(this_letter))
+        public_code += random.choice(letter_map[this_letter])
 
     print(private_code)
     print(public_code)
