@@ -5,8 +5,8 @@ import string
 
 import pytest
 
-from create_letter_key import generate_dict
-from letter_key_to_svg import generate_svg_folder
+from font_generator.create_letter_key import generate_dict
+from font_generator.letter_key_to_svg import generate_svg_folder
 
 
 def hash_file(filename):  # Simple Hash function

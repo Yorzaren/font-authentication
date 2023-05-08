@@ -1,5 +1,15 @@
 # font-val
 
+## Install
+```commandline
+pip install -r requirements.txt
+```
+
+## Start Flask
+```commandline
+flask --app web run --debug
+```
+
 ## Style / Linting / Unit Testing
 
 ### Python

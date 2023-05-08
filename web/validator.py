@@ -41,4 +41,4 @@ def generate_hard_code(length: int, source_file):
 
 if __name__ == "__main__":  # pragma: no cover
     # print(generate_simple_code(6))
-    generate_hard_code(2, "font1.txt")
+    generate_hard_code(2, "../example/font1.txt")
