@@ -1,12 +1,17 @@
 import hashlib
 import json
 import os
+import shutil
 import string
 
 import pytest
 
 from font_generator.create_letter_key import generate_dict
 from font_generator.letter_key_to_svg import generate_svg_folder
+
+# Main
+T_F1 = "test_letters"
+T_F2 = "test_letters_split"
 
 
 def hash_file(filename):  # Simple Hash function
@@ -48,6 +53,7 @@ class TestLetterKey:
 
     @pytest.mark.order(3)
     def test_letter_key_to_svg(self):
+        output_folder = T_F1
         letter_dir = "font_generator/letters"
 
         # Define the hashes associated with the files
@@ -82,7 +88,7 @@ class TestLetterKey:
 
         # Generate the SVGs related to the dict_key.txt file
         # If everything is done correctly it the hashes of the files will match.
-        generate_svg_folder("simpleKey.txt", split_folders=False)
+        generate_svg_folder("simpleKey.txt", output_folder=output_folder, input_glyphs=letter_dir, split_folders=False)
 
         # Open the original file to get the letter_key
         with open("simpleKey.txt", "r", encoding="utf-8") as f:
@@ -92,13 +98,26 @@ class TestLetterKey:
         for letter_key in data:
             # print(letter_key)
             for entry in data.get(letter_key):
-                entry_svg = "svg_letters/" + entry + ".svg"
+                entry_svg = output_folder + "/" + entry + ".svg"
                 assert os.path.isfile(entry_svg) is True
                 this_file_hash = hash_file(entry_svg)
                 assert this_file_hash == hash_dic.get(letter_key)
                 # print(entry)
 
     @pytest.mark.order(4)
+    def test_split_folder(self):
+        output_folder = T_F2
+        generate_svg_folder("example/dict.txt", output_folder=output_folder, split_folders=True)
+
+        # If things are split correctly it will output 26 folders, 1 for each letter A-Z
+        assert len(next(os.walk(output_folder))[1]) == 26
+
+    @pytest.mark.order(5)
     def test_teardown(self):
         delete_file("simpleKey.txt")
         delete_file("simpleScrambled.txt")
+
+        if os.path.exists(T_F1):
+            shutil.rmtree(T_F1)
+        if os.path.exists(T_F2):
+            shutil.rmtree(T_F2)
