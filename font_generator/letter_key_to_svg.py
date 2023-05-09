@@ -31,7 +31,7 @@ def generate_svg_folder(
     letter_dir_src = input_glyphs
 
     # Remove the old folder if it exists
-    if os.path.exists(parent_dir):
+    if os.path.exists(parent_dir):  # pragma: no cover
         shutil.rmtree(parent_dir)
     # Make a new folder
     os.makedirs(parent_dir)

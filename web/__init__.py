@@ -97,6 +97,7 @@ def hardest_validation():
         return redirect(url_for("hardest"))
 
 
+"""
 @app.route("/set/<value>")
 def set_session(value):
     session["value"] = value
@@ -106,3 +107,4 @@ def set_session(value):
 @app.route("/get")
 def get_session():
     return f'The session value is {session.get("value")}'
+"""
