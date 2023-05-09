@@ -36,44 +36,28 @@ def generate_svg_folder(
     # Make a new folder
     os.makedirs(parent_dir)
 
-    if split_folders:
-        # A-Z make folders and then add the glyphs
-        for keys in data:
+    for keys in data:
+        if split_folders:
             # Make the folder
             this_folder = parent_dir + "/" + keys
             os.makedirs(this_folder)
+        else:
+            this_folder = parent_dir
 
-            # String everything together and then output it as char.txt
-            full_string = ""
-            for char in data[keys]:
-                full_string = full_string + char
+        # String everything together and then output it as char.txt
+        full_string = ""
+        for char in data[keys]:
+            full_string = full_string + char
 
-            # Write a file to help test that the font will work.
-            write_letter_file(this_folder + "/" + keys + ".txt", full_string)
+        # Write a file to help test that the font will work.
+        write_letter_file(this_folder + "/" + keys + ".txt", full_string)
 
-            # Now copy the symbols into the folder
-            this_letter = keys.split("_")[1]
-            print(this_letter)
+        # Now copy the symbols into the folder
+        this_letter = keys.split("_")[1]
+        print("Creating svg data related to: " + this_letter)
 
-            for char in data[keys]:
-                shutil.copy(letter_dir_src + "/" + this_letter + ".svg", this_folder + "/" + char + ".svg")
-    # Toss everything into the main output folder
-    else:
-        for keys in data:
-            # String everything together and then output it as char.txt
-            full_string = ""
-            for char in data[keys]:
-                full_string = full_string + char
-
-            # Write a file to help test that the font will work.
-            write_letter_file(parent_dir + "/" + keys + ".txt", full_string)
-
-            # Now copy the symbols into the folder
-            this_letter = keys.split("_")[1]
-            print("Creating svg data related to: " + this_letter)
-
-            for char in data[keys]:
-                shutil.copy(letter_dir_src + "/" + this_letter + ".svg", parent_dir + "/" + char + ".svg")
+        for char in data[keys]:
+            shutil.copy(letter_dir_src + "/" + this_letter + ".svg", this_folder + "/" + char + ".svg")
 
 
 if __name__ == "__main__":  # pragma: no cover
