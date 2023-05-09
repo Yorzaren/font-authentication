@@ -98,7 +98,7 @@ class TestLetterKey:
         for letter_key in data:
             # print(letter_key)
             for entry in data.get(letter_key):
-                entry_svg = "svg_letters/" + entry + ".svg"
+                entry_svg = output_folder + "/" + entry + ".svg"
                 assert os.path.isfile(entry_svg) is True
                 this_file_hash = hash_file(entry_svg)
                 assert this_file_hash == hash_dic.get(letter_key)
