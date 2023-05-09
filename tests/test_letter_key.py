@@ -25,6 +25,11 @@ def hash_file(filename):  # Simple Hash function
     return h.hexdigest()
 
 
+def delete_file(filename: str):
+    if os.path.exists(filename):
+        os.remove(filename)
+
+
 class TestLetterKey:
     @pytest.mark.order(1)
     def test_create_simple_letter_key(self):
@@ -43,7 +48,7 @@ class TestLetterKey:
 
     @pytest.mark.order(3)
     def test_letter_key_to_svg(self):
-        letter_dir = "letters-1"
+        letter_dir = "font_generator/letters"
 
         # Define the hashes associated with the files
         hash_dic = {
@@ -92,3 +97,8 @@ class TestLetterKey:
                 this_file_hash = hash_file(entry_svg)
                 assert this_file_hash == hash_dic.get(letter_key)
                 # print(entry)
+
+    @pytest.mark.order(4)
+    def test_teardown(self):
+        delete_file("simpleKey.txt")
+        delete_file("simpleScrambled.txt")

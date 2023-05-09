@@ -18,7 +18,9 @@ def write_letter_file(output_location, file_text):
         text_file.write(file_text)
 
 
-def generate_svg_folder(source_file, output_folder="svg_letters", input_glyphs="letters-1", split_folders=False):
+def generate_svg_folder(
+    source_file, output_folder="svg_letters", input_glyphs="font_generator/letters", split_folders=False
+):
     # Open the text file with the data
     with open(source_file, "r", encoding="utf-8") as f:
         data = json.load(f)

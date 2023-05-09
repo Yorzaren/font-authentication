@@ -10,7 +10,7 @@ def generate_simple_code(length: int):
     return code
 
 
-def generate_hard_code(length: int, source_file):
+def generate_code_from_file(length: int, source_file):
     # Open the file and simplify it to a dict called letter_map
     with open(source_file, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -41,4 +41,4 @@ def generate_hard_code(length: int, source_file):
 
 if __name__ == "__main__":  # pragma: no cover
     # print(generate_simple_code(6))
-    generate_hard_code(2, "../example/font1.txt")
+    generate_code_from_file(2, "../example/font1.txt")
