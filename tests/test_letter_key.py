@@ -29,6 +29,7 @@ def delete_file(filename: str):
     if os.path.exists(filename):
         os.remove(filename)
 
+
 class TestLetterKey:
     @pytest.mark.order(1)
     def test_create_simple_letter_key(self):
