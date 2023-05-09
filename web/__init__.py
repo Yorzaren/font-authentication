@@ -6,7 +6,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
-from web.validator import generate_hard_code, generate_simple_code
+from web.validator import generate_code_from_file, generate_simple_code
 
 # create the extension
 db = SQLAlchemy()
@@ -57,7 +57,7 @@ def simple_validation():
 
 @app.route("/hard")
 def hard():
-    code_array = generate_hard_code(6, "./example/font1.txt")
+    code_array = generate_code_from_file(6, "./example/font1.txt")
     private_code = code_array[0]
     public_code = code_array[1]
     session["hard_val"] = private_code
@@ -78,7 +78,7 @@ def hard_validation():
 
 @app.route("/hardest")
 def hardest():
-    code_array = generate_hard_code(6, "./example/dict.txt")
+    code_array = generate_code_from_file(6, "./example/dict.txt")
     private_code = code_array[0]
     public_code = code_array[1]
     session["hardest_val"] = private_code
