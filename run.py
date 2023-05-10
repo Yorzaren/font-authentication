@@ -37,18 +37,20 @@ If that folder can't be found, it will default to the provided glyphs.
 
 parser = argparse.ArgumentParser(description="-------------------- Generate the key or svg files --------------------")
 # If not defined, generate the key and the svg files
-parser.add_argument("--key_only", action="store_true", help="Generate the key.txt only.")
-parser.add_argument("--input_string", help="Generate key from an input string. (Overrides: generate_from)")
+parser.add_argument("--key_only", action="store_true", help="Generate the key.txt only")
+parser.add_argument("--input_string", help="Generate key from an input string (Overrides: generate_from)")
 parser.add_argument(
     "--generate_from",
     choices=["AZ", "ZH_ALL", "ZH_HSK", "CJK", "CJK_A", "CJK_B", "CJK_ALL"],
     default="ZH_ALL",
     help="Generate key from default strings (default: ZH_ALL)",
 )
-parser.add_argument("--input_key", help="If have a key and want to generate svg files (Overrides: key generation)")
+parser.add_argument(
+    "--input_key", help="If have a key and want to generate svg files (Overrides: input_string and generate_from)"
+)
 
 # Additional commands
-parser.add_argument("-o", "--output", default="key.txt", help="Output filename (default: key.txt")
+parser.add_argument("-o", "--output", default="key.txt", help="Output filename (default: key.txt)")
 parser.add_argument("--input_glyphs", default="font_generator/letters", help="Define the glyphs you want to use")
 parser.add_argument("--split_folders", action="store_true", help="Split the svg files into folders")
 
