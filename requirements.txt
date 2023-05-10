@@ -1,11 +1,11 @@
-pytest
-pytest-cov
-pytest-order
-black
-isort
-flake8
+pytest==7.3.1
+pytest-cov==4.0.0
+pytest-order==1.1.0
+black==23.3.0
+isort==5.12.0
+flake8==6.0.0
 
 # Flask related stuff for the front end
-Flask
-Flask-Session
-Flask-SQLAlchemy
+Flask==2.2.5
+Flask-Session==0.4.1
+Flask-SQLAlchemy==3.0.3
