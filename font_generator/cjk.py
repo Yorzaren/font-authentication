@@ -3,6 +3,7 @@
 CJK short for CJK ideographs Chinese, Japanese, Korean, and Vietnamese.
 This comes from https://en.wikipedia.org/wiki/List_of_CJK_Unified_Ideographs,_part_1_of_4 etc.
 
+Remember to update test_check_preset_strings.py when you change this
 
 CJK = 20989
 A = 6592
