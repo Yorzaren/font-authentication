@@ -45,7 +45,7 @@ def test_simple_validation_endpoint(app, client):
 def test_hard_correct_data(app, client):
     res = client.get("/hard")
     assert res.status_code == 200
-    assert b"Harder Validation" in res.data
+    assert b"Hard Validation" in res.data
 
     with client.session_transaction() as session:
         this_code = session["hard_val"]
@@ -56,7 +56,7 @@ def test_hard_correct_data(app, client):
 def test_hard_incorrect_data(app, client):
     res = client.get("/hard")
     assert res.status_code == 200
-    assert b"Harder Validation" in res.data
+    assert b"Hard Validation" in res.data
 
     with client.session_transaction() as session:
         this_code = "BADCODE"  # Pass a value that isn't the correct validation code
