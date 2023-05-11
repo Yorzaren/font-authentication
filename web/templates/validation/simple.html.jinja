@@ -1,6 +1,12 @@
 {% extends 'base.html.jinja' %}
 
 {% block content %}
+	<div id="info-container" class="mx-auto">
+		<h2>{{title}} Info</h2>
+		<div class="justify-content-center">
+			<p>This is just proof that the system can send a simple random code back to the user, which they can enter, and the system can receive back. It does NOT protect from bots because the code is sent as plaintext and is weakly "protected" by disallowing users to copy the text directly. However, it is client-side through CSS, which is easily removable.</p>
+		</div>
+	</div>
 	<div id="validation-container" class="mx-auto">
 		<h2>{{title}}</h2>
 		<div class="justify-content-center"><b>Type what you see:</b>
@@ -9,7 +15,7 @@
 		<form action="simple_validation" method="POST">
 			<div class="mb-3">
 				<label for="validation" class="form-label">Input</label>
-				<input type="input" class="form-control" id="validation" name="validation">
+				<input type="input" class="form-control" id="validation" name="validation" autocomplete="off">
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
