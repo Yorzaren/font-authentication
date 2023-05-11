@@ -14,7 +14,7 @@ import json
 import random  # Consider the benefits of swapping to cryptorandom
 
 
-def generate_dict(input_string: str, output_file: str, scramble=True):
+def generate_dict(input_string: str, output_file: str, scramble=True, debug=False):
     character_array = []
 
     # Take the imported characters and the add them to an array
@@ -23,16 +23,17 @@ def generate_dict(input_string: str, output_file: str, scramble=True):
 
     # Debugging messages
     print(f"Array size: {len(character_array)}")
-    print("Original array:")
-    print(character_array)
+    if debug:  # pragma: no cover
+        print("Original array:")
+        print(character_array)
 
     # Shuffle array
     if scramble is True:
         random.shuffle(character_array)
-
-        # Check that it is scrambled
-        print("Scrambled array:")
-        print(character_array)
+        if debug:  # pragma: no cover
+            # Check that it is scrambled
+            print("Scrambled array:")
+            print(character_array)
 
     # Create the dictionary
     letter_key = {}
