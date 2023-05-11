@@ -1,8 +1,12 @@
 # font-val
 
-This is a proof-of-concept for using fonts as part of a validation process. Fonts can associate a character/letter with a glyph (an image representation) which could be unrelated to the character. An example of this is the Wingdings dingbat font. When using Wingdings, typed characters render as pictures unrelated to the characters. It is possible to create private fonts and distribute them to authorized parties.
+This is a proof-of-concept for using fonts as part of a validation process.
+Fonts can associate a character/letter with a glyph (an image representation) which could be unrelated to the character.
+An example of this is the Wingdings dingbat font. When using Wingdings, typed characters render as pictures unrelated to the characters.
+It is possible to create private fonts and distribute them to authorized parties.
 
-By generating a key and associating certain characters with specific letters, it is possible to create a public validation code. When used with the correct font, the public validation code will show the private validation code, which will authenticate the user.
+By generating a key and associating certain characters with specific letters, it is possible to create a public validation code.
+When used with the correct font, the public validation code will show the private validation code, which will authenticate the user.
 
 ## Install
 ```commandline
@@ -12,7 +16,7 @@ pip install -r requirements.txt
 ## How to Use
 
 ### Generating a Key
-Call python run the script: `run.py`
+Call python to run the script: `run.py`
 ```commandline
 python run.py
 ```
@@ -41,7 +45,7 @@ I export mine as a `.ttf` file.
 ## Run the Demo
 By default, there's some included example files which can display the proof-of-concept working.
 
-Start the website on the localhost by using the following command:
+Start the site on the localhost by using the following command:
 
 ```commandline
 flask --app web run --debug
