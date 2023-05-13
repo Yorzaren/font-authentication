@@ -1,6 +1,6 @@
 # font-val
 
-This is a proof-of-concept for using fonts as part of a validation process.
+**Font Validator** is a proof-of-concept for using fonts as part of a validation process.
 Fonts can associate a character/letter with a glyph (an image representation) which could be unrelated to the character.
 An example of this is the Wingdings dingbat font. When using Wingdings, typed characters render as pictures unrelated to the characters.
 It is possible to create private fonts and distribute them to authorized parties.
@@ -8,9 +8,30 @@ It is possible to create private fonts and distribute them to authorized parties
 By generating a key and associating certain characters with specific letters, it is possible to create a public validation code.
 When used with the correct font, the public validation code will show the private validation code, which will authenticate the user.
 
+Image 1 shows the validation code without the required font installed.
+Image 2 shows what the correct validation code looks when the correct font is installed and loaded.
+
+**Image 1:**
+<div align="center">
+
+![image_1](https://github.com/Yorzaren/font-val/raw/main/web/static/image_1.png)
+
+</div>
+
+**Image 2:**
+
+<div align="center">
+
+![image_2](https://github.com/Yorzaren/font-val/raw/main/web/static/image_2.png)
+
+</div>
+
+A character in the private validation code can render as multiple characters.
+This makes it difficult to bruteforce and discover the mapping because the likelihood of seeing the character again is unlikely.
+
 ## Install
 ```commandline
-pip install -r requirements.txt
+pip install -r requirements.txt -r requirements-dev.txt
 ```
 
 ## How to Use
@@ -36,9 +57,20 @@ If you don't want to use the default glyphs you can draw the letters A-Z and the
 
 Menu > Import and Export > Import SVG Folder > Click the "Select a Folder" button > Navigate to the SVG folder > Click "Import"
 
+**MAKE SURE YOU CHECK SET WIDTH OF GLYPH TO SVG FILE!!!**
+
+If you fail to tick the checkbox, the glyphs will have display overlap and spacing issues.
+
 Once that is complete you will see a popup telling you how many glyphs BirdFont has imported.
 
-After successfully importing the glyphs, you can save the font and export it.
+Save the file and then run:
+```commandline
+python birdfont_modifier.py FILENAME
+```
+
+The script will fix the space issues and allow the letters a bit more separation from each other.
+
+After successfully importing the glyphs and modifying the file, you can export it.
 
 I export mine as a `.ttf` file.
 
