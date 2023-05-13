@@ -1,0 +1,6 @@
+pycryptodomex==3.17 # Used to replace python random shuffle
+
+# Flask related stuff for the front end
+Flask==2.2.5
+Flask-Session==0.4.1
+Flask-SQLAlchemy==3.0.3
