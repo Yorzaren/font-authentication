@@ -10,7 +10,7 @@ When used with the correct font, the public validation code will show the privat
 
 ## Install
 ```commandline
-pip install -r requirements.txt
+pip install -r requirements.txt -r requirements-dev.txt
 ```
 
 ## How to Use
