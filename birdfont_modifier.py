@@ -10,7 +10,7 @@ colorama_init()
 
 
 def update_bf_file(
-    filename: str, designer="Yorzaren", designer_url="https://github.com/Yorzaren/", space_l=0, space_r=0
+    filename: str, designer="Yorzaren", designer_url="https://github.com/Yorzaren/", space_l=0, space_r=0, backup=False
 ):
     if os.path.exists(filename) is False:
         print(
@@ -44,13 +44,16 @@ def update_bf_file(
                         child.attrib["right"] = str(float(child.attrib["right"]) + space_r)
 
         # Output updated file
-        new_file = "Fixed_" + filename
+        if backup:
+            new_file = "Fixed_" + os.path.basename(filename)
+        else:
+            new_file = filename
         with open(new_file, "w") as file_handle:
             file_handle.write(ET.tostring(root, encoding="utf8").decode("utf8"))
 
         print(
-            f"{Fore.GREEN}Finished: New {new_file} located at: "
-            f"{Back.BLACK}{os.path.abspath(new_file)}{Style.RESET_ALL}"
+            f"{Fore.GREEN}Finished: {new_file} located at: "
+            f"{Back.BLACK}{Fore.BLUE}{os.path.abspath(new_file)}{Style.RESET_ALL}"
         )
 
 
@@ -62,6 +65,9 @@ if __name__ == "__main__":
     parser.add_argument("--designer_url", help="Change designer url")
     parser.add_argument("--space_l", type=int, default=0, help="Set the space offset for the glyphs (default: 0)")
     parser.add_argument("--space_r", type=int, default=5, help="Set the space offset for the glyphs (default: 5)")
+    parser.add_argument(
+        "--backup", action="store_true", default=5, help="Set the space offset for the glyphs (default: 5)"
+    )
     args = parser.parse_args()
 
     # print(args)
@@ -72,7 +78,12 @@ if __name__ == "__main__":
     # Allow people to set the designer without the designer url
     elif args.designer is not None and args.designer_url is None:
         update_bf_file(
-            filename=args.filename, designer=args.designer, designer_url="", space_l=args.space_l, space_r=args.space_r
+            filename=args.filename,
+            designer=args.designer,
+            designer_url="",
+            space_l=args.space_l,
+            space_r=args.space_r,
+            backup=args.backup,
         )
     # Both designer values are defined
     elif args.designer is not None and args.designer_url is not None:
@@ -82,7 +93,8 @@ if __name__ == "__main__":
             designer_url=args.designer_url,
             space_l=args.space_l,
             space_r=args.space_r,
+            backup=args.backup,
         )
     # Default to myself as the designer
     else:
-        update_bf_file(filename=args.filename, space_l=args.space_l, space_r=args.space_r)
+        update_bf_file(filename=args.filename, space_l=args.space_l, space_r=args.space_r, backup=args.backup)
