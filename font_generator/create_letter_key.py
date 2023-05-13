@@ -11,10 +11,13 @@ for x in string.ascii_uppercase:
 """
 
 import json
-import random  # Consider the benefits of swapping to cryptorandom
+
+from Cryptodome.Random.random import (
+    shuffle as shuffle,  # Can also use random.shuffle if this doesn't work
+)
 
 
-def generate_dict(input_string: str, output_file: str, scramble=True, debug=False):
+def generate_dict(input_string: str, output_file: str, scramble=True, debug=True):
     character_array = []
 
     # Take the imported characters and the add them to an array
@@ -29,7 +32,7 @@ def generate_dict(input_string: str, output_file: str, scramble=True, debug=Fals
 
     # Shuffle array
     if scramble is True:
-        random.shuffle(character_array)
+        shuffle(character_array)
         if debug:  # pragma: no cover
             # Check that it is scrambled
             print("Scrambled array:")
