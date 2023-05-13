@@ -17,7 +17,7 @@ from Cryptodome.Random.random import (
 )
 
 
-def generate_dict(input_string: str, output_file: str, scramble=True, debug=True):
+def generate_dict(input_string: str, output_file: str, scramble=True, debug=False):
     character_array = []
 
     # Take the imported characters and the add them to an array
