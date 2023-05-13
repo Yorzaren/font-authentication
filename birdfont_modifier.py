@@ -65,9 +65,7 @@ if __name__ == "__main__":
     parser.add_argument("--designer_url", help="Change designer url")
     parser.add_argument("--space_l", type=int, default=0, help="Set the space offset for the glyphs (default: 0)")
     parser.add_argument("--space_r", type=int, default=5, help="Set the space offset for the glyphs (default: 5)")
-    parser.add_argument(
-        "--backup", action="store_true", default=5, help="Set the space offset for the glyphs (default: 5)"
-    )
+    parser.add_argument("--backup", action="store_true", help="Save the file as Fixed_FILENAME")
     args = parser.parse_args()
 
     # print(args)
