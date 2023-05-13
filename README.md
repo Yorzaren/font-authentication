@@ -36,9 +36,20 @@ If you don't want to use the default glyphs you can draw the letters A-Z and the
 
 Menu > Import and Export > Import SVG Folder > Click the "Select a Folder" button > Navigate to the SVG folder > Click "Import"
 
+**MAKE SURE YOU CHECK SET WIDTH OF GLYPH TO SVG FILE!!!**
+
+If you fail to tick the checkbox, the glyphs will have display overlap and spacing issues.
+
 Once that is complete you will see a popup telling you how many glyphs BirdFont has imported.
 
-After successfully importing the glyphs, you can save the font and export it.
+Save the file and then run:
+```commandline
+python birdfont_modifier.py FILENAME
+```
+
+The script will fix the space issues and allow the letters a bit more separation from each other.
+
+After successfully importing the glyphs and modifying the file, you can export it.
 
 I export mine as a `.ttf` file.
 
