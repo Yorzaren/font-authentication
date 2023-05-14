@@ -1,20 +1,20 @@
-# font-val
+# font-authentication
 
-**Font Validator** is a proof-of-concept for using fonts as part of a validation process.
+**Font Authentication** is a proof of concept for using fonts as part of the authentication process.
 Fonts can associate a character/letter with a glyph (an image representation) which could be unrelated to the character.
 An example of this is the Wingdings dingbat font. When using Wingdings, typed characters render as pictures unrelated to the characters.
 It is possible to create private fonts and distribute them to authorized parties.
 
-By generating a key and associating certain characters with specific letters, it is possible to create a public validation code.
-When used with the correct font, the public validation code will show the private validation code, which will authenticate the user.
+By generating a key and associating certain characters with specific letters, it is possible to create a public authentication code.
+When used with the correct font, the public authentication code will show the private authentication code, which will authenticate the user.
 
-Image 1 shows the validation code without the required font installed.
-Image 2 shows what the correct validation code looks when the correct font is installed and loaded.
+Image 1 shows the authentication code without the required font installed.
+Image 2 shows what the correct authentication code looks when the correct font is installed and loaded.
 
 **Image 1:**
 <div align="center">
 
-![image_1](https://github.com/Yorzaren/font-val/raw/main/web/static/image_1.png)
+![image_1](https://github.com/Yorzaren/font-authentication/raw/main/web/static/image_1.png)
 
 </div>
 
@@ -22,11 +22,11 @@ Image 2 shows what the correct validation code looks when the correct font is in
 
 <div align="center">
 
-![image_2](https://github.com/Yorzaren/font-val/raw/main/web/static/image_2.png)
+![image_2](https://github.com/Yorzaren/font-authentication/raw/main/web/static/image_2.png)
 
 </div>
 
-A character in the private validation code can render as multiple characters.
+A character in the private authentication code can render as multiple characters.
 This makes it difficult to bruteforce and discover the mapping because the likelihood of seeing the character again is unlikely.
 
 ## Install
@@ -75,7 +75,7 @@ After successfully importing the glyphs and modifying the file, you can export i
 I export mine as a `.ttf` file.
 
 ## Run the Demo
-By default, there's some included example files which can display the proof-of-concept working.
+By default, there's some included example files which can display the proof of concept working.
 
 Start the site on the localhost by using the following command:
 
