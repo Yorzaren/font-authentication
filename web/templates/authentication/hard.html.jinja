@@ -1,0 +1,38 @@
+{% extends 'base.html.jinja' %}
+
+{% block content %}
+	<div id="info-container" class="mx-auto">
+		<h2>{{title}} Info</h2>
+		<div class="justify-content-center">
+			<p>The system returning the authentication code as text and not an image is a deliberate choice. Fonts can modify the end appearance of the given authentication code. A system can have two codes, an private authentication code and an associated public authentication code, that relates to the public authentication code. The font displays the correct code by remapping the public code to match the public code. If the user does not have access to the font, they will not be able to provide the correct code to the system for authentication.</p>
+			<p>For this demo, the necessary font is loadable from a web resource. However, without it, it would be hard to guess which character(s) map to which character. Without the font, text renders without the correct context.</p>
+			<script>
+			function toggleFont() {
+				var authentication_code = $('.authentication-code');
+				var toggler = $('#toggle-font');
+				if (authentication_code.css('font-family') == 'font1') {
+					toggler.text('Disable Font');
+					authentication_code.css('font-family', 'inherit');
+				} else {
+					authentication_code.css('font-family', 'font1');
+					toggler.text('Enable Font');
+				}
+			}
+			</script>
+			<p><b>Font toggle: </b><button class="btn btn-primary" onclick="toggleFont();" id="toggle-font">Disable Font</button></p>
+		</div>
+	</div>
+	<div id="authentication-container" class="mx-auto">
+		<h2>{{title}}</h2>
+		<div class="justify-content-center"><b>Type what you see:</b>
+			<span style="font-family:font1" class="authentication-code">{{authentication_code}}</span>
+		</div>
+		<form action="hard_authentication" method="POST">
+			<div class="mb-3">
+				<label for="authentication" class="form-label">Input</label>
+				<input type="input" class="form-control" id="authentication" name="authentication" autocomplete="off">
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+{% endblock %}

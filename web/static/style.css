@@ -100,7 +100,7 @@ code {
 	margin: 10px 30px;
 }
 
-.validation-code {
+.authentication-code {
 	user-select: none;
 	background: #fff;
 	color: #000;
