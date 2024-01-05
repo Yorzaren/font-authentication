@@ -27,7 +27,7 @@ markupsafe==2.1.2
     # via
     #   jinja2
     #   werkzeug
-pycryptodomex==3.17
+pycryptodomex==3.19.1
     # via -r requirements.in
 sqlalchemy==2.0.13
     # via flask-sqlalchemy
