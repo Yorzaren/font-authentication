@@ -1,4 +1,4 @@
-pycryptodomex==3.17 # Used to replace python random shuffle
+pycryptodomex==3.19.1 # Used to replace python random shuffle
 
 # Flask related stuff for the front end
 Flask==2.2.5
