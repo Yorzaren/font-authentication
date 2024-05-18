@@ -33,5 +33,5 @@ sqlalchemy==2.0.13
     # via flask-sqlalchemy
 typing-extensions==4.5.0
     # via sqlalchemy
-werkzeug==3.0.1
+werkzeug==3.0.3
     # via flask
