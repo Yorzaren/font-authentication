@@ -78,7 +78,7 @@ pytest-order==1.1.0
     # via -r requirements-dev.in
 pyyaml==6.0
     # via pre-commit
-requests==2.32.0
+requests==2.32.4
     # via -r requirements-dev.in
 soupsieve==2.4.1
     # via beautifulsoup4
