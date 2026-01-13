@@ -89,11 +89,13 @@ tomli==2.0.1
     #   coverage
     #   pyproject-hooks
     #   pytest
-typing-extensions==4.10.0
-    # via black
+typing-extensions==4.15.0
+    # via
+    #   black
+    #   virtualenv
 urllib3==2.6.0
     # via requests
-virtualenv==20.26.6
+virtualenv==20.36.1
     # via pre-commit
 wheel==0.40.0
     # via pip-tools
