@@ -13,9 +13,9 @@ flask==2.2.5
     #   -r requirements.in
     #   flask-session
     #   flask-sqlalchemy
-flask-session==0.4.1
+flask-session==0.8.0
     # via -r requirements.in
-flask-sqlalchemy==3.0.3
+flask-sqlalchemy==3.1.1
     # via -r requirements.in
 greenlet==2.0.2
     # via sqlalchemy
@@ -27,9 +27,11 @@ markupsafe==2.1.2
     # via
     #   jinja2
     #   werkzeug
-pycryptodomex==3.19.1
+msgspec==0.20.0
+    # via flask-session
+pycryptodomex==3.23.0
     # via -r requirements.in
-sqlalchemy==2.0.13
+sqlalchemy==2.0.24
     # via flask-sqlalchemy
 typing-extensions==4.5.0
     # via sqlalchemy
