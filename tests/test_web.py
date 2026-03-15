@@ -2,6 +2,9 @@
 Pytest for web/__init__.py
 which starts the front-end
 """
+import werkzeug
+
+werkzeug.__version__ = "3.0"  # Manually add missing attr for pytest
 
 
 def test_index(app, client):

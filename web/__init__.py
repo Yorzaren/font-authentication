@@ -32,9 +32,9 @@ app.config["SESSION_SQLALCHEMY"] = db
 
 
 # initialize the app with the extension
+db.init_app(app)
 sess = Session()
 sess.init_app(app)
-db.init_app(app)
 
 with app.app_context():
     db.create_all()
