@@ -15,5 +15,5 @@ pip-tools==7.5.3
 typing-extensions==4.15.0
 
 # For parse_table.py which is a legacy script
-requests==2.32.5
+requests==2.33.0
 beautifulsoup4==4.14.3
