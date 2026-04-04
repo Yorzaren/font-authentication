@@ -5,6 +5,7 @@ on:
   push:
     branches: [master, main]
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
     branches: [master, main]
 
 permissions:
@@ -18,21 +19,38 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.10"]
+        python-version: ["3.14"]
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      # INTEGRITY CHECK: If requirements.txt changed, PR MUST have 'verified-deps' label
+      - name: Verify Requirements Integrity
+        if: |
+          github.event_name == 'pull_request' &&
+          !contains(github.event.pull_request.labels.*.name, 'verified-deps')
+        run: |
+          git show origin/main:requirements.txt > requirements.txt.orig
+
+          if ! diff -q requirements.txt requirements.txt.orig > /dev/null; then
+            echo "::error::SECURITY ALERT: requirements.txt was modified."
+            echo "A maintainer must verify the changes and add the 'verified-deps' label."
+            exit 1
+          fi
       - name: Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'pip'
+          cache: "pip"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install  pytest
-          pip install -r requirements.txt
+          # INCLUDED in the requirements.
+          # pip install  pytest
+          pip install --require-hashes -r requirements.txt -r requirements-dev.txt
       - name: Test with pytest
         run: |
           pytest

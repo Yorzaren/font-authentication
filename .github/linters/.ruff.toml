@@ -1,0 +1,11 @@
+line-length = 120
+extend-exclude = ["venv", ".venv"]
+
+[lint]
+# E/W/F = Flake8 (pycodestyle + pyflakes)
+# I = isort (Import sorting)
+select = ["E", "W", "F", "I"]
+
+[format]
+quote-style = "double"
+indent-style = "space"

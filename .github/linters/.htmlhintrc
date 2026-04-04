@@ -1,4 +1,4 @@
 {
-  // Indents should be tabs
-  "space-tab-mixed-disabled": tab
+	// Indents should be tabs
+	"space-tab-mixed-disabled": "tab"
 }

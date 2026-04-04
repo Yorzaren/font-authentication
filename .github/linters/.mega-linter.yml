@@ -1,0 +1,43 @@
+# .mega-linter.yml
+# --- GLOBAL SETTINGS ---
+# See all variables: https://megalinter.io/configuration/
+APPLY_FIXES: all
+APPLY_FIXES_MODE: commit
+
+# --- SECURITY & ERROR FIXES ---
+# Globally exclude the .git directory from all linter scans for performance and security
+EXCLUDED_DIRECTORIES:
+    - .git
+    - node_modules
+    - .venv
+
+# --- ENABLE LINTER WARNING NOT FAIL ---
+SPELL_CSPELL_DISABLE_ERRORS: true
+
+# --- STYLE PREFERENCES ---
+PYTHON_DEFAULT_STYLE: ruff
+JAVASCRIPT_DEFAULT_STYLE: prettier
+TYPESCRIPT_DEFAULT_STYLE: prettier
+MARKDOWN_DEFAULT_STYLE: markdownlint
+
+# --- LINTER SELECTION ---
+DISABLE_LINTERS:
+    - PYTHON_PYLINT
+    - PYTHON_BLACK
+    - PYTHON_FLAKE8
+    - PYTHON_ISORT
+    - PYTHON_BANDIT
+    - PYTHON_MYPY
+    - PYTHON_NBQA_MYPY
+    - PYTHON_PYRIGHT
+    - JSON_JSONLINT
+    - JSON_V8R
+    - JSON_ESLINT_PLUGIN_JSONC
+    - JSON_NPM_PACKAGE_JSON_LINT
+    - JAVASCRIPT_STANDARD
+    - MARKDOWN_REMARK_LINT
+    - MARKDOWN_MARKDOWN_TABLE_FORMATTER
+    - MARKDOWN_RUMDL
+    - REPOSITORY_KINGFISHER
+    - YAML_V8R
+    - SPELL_LYCHEE
