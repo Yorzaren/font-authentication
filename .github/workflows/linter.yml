@@ -27,8 +27,8 @@ jobs:
     name: MegaLinter
     runs-on: ubuntu-latest
     # --- SKIP IF DEPENDABOT ---
-    if:|
-      github.actor != 'dependabot[bot]' && 
+    if: |
+      github.actor != 'dependabot[bot]' &&
       github.event.head_commit.author.email != '129584137+megalinter-bot@users.noreply.github.com'
     permissions:
       contents: write
