@@ -388,9 +388,9 @@ pyproject-hooks==1.2.0 \
     # via
     #   build
     #   pip-tools
-pytest==9.0.3 \
-    --hash=sha256:2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9 \
-    --hash=sha256:b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c
+pytest==9.1.0 \
+    --hash=sha256:41dd9148c08072446394cefd3d79701701335a9f4cae69ba92e39f6c7f5c061c \
+    --hash=sha256:8ebb0e7888bdf2bdfc602ec51f8f62d50200af37356c74e503c79a94f5c81f32
     # via
     #   -r requirements-dev.in
     #   pytest-cov
@@ -399,9 +399,9 @@ pytest-cov==7.1.0 \
     --hash=sha256:30674f2b5f6351aa09702a9c8c364f6a01c27aae0c1366ae8016160d1efc56b2 \
     --hash=sha256:a0461110b7865f9a271aa1b51e516c9a95de9d696734a2f71e3e78f46e1d4678
     # via -r requirements-dev.in
-pytest-order==1.4.0 \
-    --hash=sha256:05b1710cf16bb2123294eec5bdfaee513322ff1926c0dfa86eb8be632eb264a1 \
-    --hash=sha256:327fb6eee1ae771051da13d2a0d9306d947e87f9ab8f4d6302e5d122c7472691
+pytest-order==1.5.0 \
+    --hash=sha256:667ba2b7303fe2c529848663e0a41dfb0cc4d64f09f87272e4a9a1751efb52b2 \
+    --hash=sha256:96acd7587b5a2855dcaa4a898288103d202894a61afd813adbc9b77aab04d90d
     # via -r requirements-dev.in
 python-discovery==1.2.1 \
     --hash=sha256:180c4d114bff1c32462537eac5d6a332b768242b76b69c0259c7d14b1b680c9e \
