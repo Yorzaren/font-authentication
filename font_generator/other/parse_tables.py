@@ -7,6 +7,8 @@ Leaving this here if needed again.
 
 """
 
+# pragma: no cover
+
 import requests
 from bs4 import BeautifulSoup
 
