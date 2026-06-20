@@ -1,4 +1,4 @@
 {
-  "threshold": 3,
-  "ignore": ["**/tests/data/**"]
+	"threshold": 3,
+	"ignore": ["**/tests/data/**"]
 }

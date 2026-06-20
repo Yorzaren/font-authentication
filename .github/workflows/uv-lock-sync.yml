@@ -1,0 +1,51 @@
+name: Dependabot uv.lock Update
+
+on:
+    pull_request:
+        types: [labeled]
+
+permissions:
+    contents: write
+
+jobs:
+    update-lockfile:
+        name: Update uv.lock
+        if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == github.event.pull_request.head.repo.full_name && github.event.label.name == 'verified-deps'
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+              with:
+                  ref: ${{ github.event.pull_request.head.ref }}
+                  token: ${{secrets.GITHUB_TOKEN }}
+                  fetch-depth: 0
+                  persist-credentials: false
+
+            - name: Set up uv
+              uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+              with:
+                  version: "latest"
+
+            - name: Update Lockfile
+              run: |
+                  uv lock --upgrade
+
+            - name: Commit and Push Changes
+              env:
+                  PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  HEAD_REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+              run: |
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+                  git add uv.lock
+
+                  if ! git diff --cached --quiet; then
+                    git commit -m "chore: update uv.lock for dependabot changes"
+                    # Set the authenticated remote right before pushing
+                    git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}.git"
+                    git push origin HEAD:"$HEAD_REF"
+                  else
+                    echo "uv.lock is already up to date."
+                  fi

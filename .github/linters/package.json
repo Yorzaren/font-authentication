@@ -1,0 +1,13 @@
+{
+  "name": "github-actions-linters",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "htmlhint": "^1.9.2",
+    "jscpd": "^5.0.9",
+    "markdownlint-cli": "^0.49.0",
+    "prettier": "^3.2.5",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}
