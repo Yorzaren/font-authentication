@@ -30,10 +30,22 @@ A character in the private authentication code can render as multiple characters
 This makes it difficult to bruteforce and discover the mapping because the likelihood of seeing the character again is unlikely.
 
 ## Install
+Copy the repository
 ```commandline
-pip install -r requirements.txt -r requirements-dev.txt
+git clone https://github.com/Yorzaren/font-authentication.git
 ```
-
+Navigate to the folder
+```commandline
+cd font-authentication
+```
+Install the dependencies with (uv)[https://docs.astral.sh/uv/getting-started/installation/]
+```commandline
+python -m uv sync --no-dev
+```
+Activate enviroment using command prompt
+```commandline
+call .venv/scripts/activate
+```
 ## How to Use
 
 ### Generating a Key
