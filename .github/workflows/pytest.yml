@@ -2,55 +2,60 @@
 name: Run Pytest
 
 on:
-  push:
-    branches: [master, main]
-  pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
-    branches: [master, main]
+    push:
+        branches: [master, main]
+    pull_request:
+        types: [opened, synchronize, reopened, labeled, unlabeled]
+        branches: [master, main]
 
 permissions:
-  contents: read
+    contents: read
 
 jobs:
-  pytest:
-    name: Run Pytest
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.14"]
+    pytest:
+        name: Run Pytest
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest]
+                python-version: ["3.14"]
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      # INTEGRITY CHECK: If requirements.txt changed, PR MUST have 'verified-deps' label
-      - name: Verify Requirements Integrity
-        if: |
-          github.event_name == 'pull_request' &&
-          !contains(github.event.pull_request.labels.*.name, 'verified-deps')
-        run: |
-          git show origin/main:requirements.txt > requirements.txt.orig
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+              with:
+                  persist-credentials: false
+                  fetch-depth: 0
+            # INTEGRITY CHECK: If uv.lock or pyproject.toml changed, PR MUST have 'verified-deps' label
+            - name: Verify Requirements Integrity
+              if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'verified-deps')
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  BASE_REF: ${{ github.base_ref }}
+              run: |
+                  git fetch "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" "$BASE_REF" --depth=1
 
-          if ! diff -q requirements.txt requirements.txt.orig > /dev/null; then
-            echo "::error::SECURITY ALERT: requirements.txt was modified."
-            echo "A maintainer must verify the changes and add the 'verified-deps' label."
-            exit 1
-          fi
-      - name: Python ${{ matrix.python-version }}
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: "pip"
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          # INCLUDED in the requirements.
-          # pip install  pytest
-          pip install --require-hashes -r requirements.txt -r requirements-dev.txt
-      - name: Test with pytest
-        run: |
-          pytest
+                  if ! git diff --quiet FETCH_HEAD -- pyproject.toml; then
+                    echo "::error::SECURITY ALERT: pyproject.toml was modified without the 'verified-deps' label."
+                    echo "A maintainer must verify the changes and add the 'verified-deps' label."
+                    exit 1
+                  fi
+                  # Check uv.lock
+
+                  if ! git diff --quiet FETCH_HEAD -- uv.lock; then
+                    echo "::error::SECURITY ALERT: uv.lock was modified without the 'verified-deps' label."
+                    echo "A maintainer must verify the cryptographic lock adjustments and add the 'verified-deps' label."
+                    exit 1
+                  fi
+            - name: Set up uv
+              uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+              with:
+                  version: "0.11.21"
+                  enable-cache: true
+            - name: Python ${{ matrix.python-version }}
+              run: uv python install ${{ matrix.python-version }}
+            - name: Install dependencies
+              run: uv sync --frozen
+            - name: Test with pytest
+              run: uv run pytest

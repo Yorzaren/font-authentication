@@ -2,7 +2,6 @@
 This should be using server side sessions and store it in a local db.sqlite
 """
 
-
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy

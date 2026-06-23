@@ -31,7 +31,7 @@ def hash_file(filename):  # Simple Hash function
 
 
 def delete_file(filename: str):
-    if os.path.exists(filename):
+    if os.path.exists(filename):  # pragma: no branch
         os.remove(filename)
 
 
@@ -40,7 +40,7 @@ class TestLetterKey:
     def test_create_simple_letter_key(self):
         SIMPLE_LETTERS = string.ascii_letters
         # Create a key where they are assigned in order
-        # A and a are assigned to letter_A and so on and so forth.
+        # "A" and "a" are assigned to letter_A and so on and so forth.
         generate_dict(SIMPLE_LETTERS, "simpleKey.txt", scramble=False)
         generate_dict(SIMPLE_LETTERS, "simpleScrambled.txt")
 
@@ -117,7 +117,7 @@ class TestLetterKey:
         delete_file("simpleKey.txt")
         delete_file("simpleScrambled.txt")
 
-        if os.path.exists(T_F1):
+        if os.path.exists(T_F1):  # pragma: no branch
             shutil.rmtree(T_F1)
-        if os.path.exists(T_F2):
+        if os.path.exists(T_F2):  # pragma: no branch
             shutil.rmtree(T_F2)
