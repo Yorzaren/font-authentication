@@ -7,6 +7,8 @@ Leaving this here if needed again.
 
 """
 
+# pragma: exclude file
+
 import requests
 from bs4 import BeautifulSoup
 

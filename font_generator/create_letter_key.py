@@ -69,61 +69,38 @@ def generate_dict(input_string: str, output_file: str, scramble=True, debug=Fals
     letter_Y = []
     letter_Z = []
 
-    # Sort them into the sub-arrays
-    for x in character_array:
-        index = character_array.index(x)
-        if index % 26 == 0:
-            letter_A.append(x)
-        elif index % 26 == 1:
-            letter_B.append(x)
-        elif index % 26 == 2:
-            letter_C.append(x)
-        elif index % 26 == 3:
-            letter_D.append(x)
-        elif index % 26 == 4:
-            letter_E.append(x)
-        elif index % 26 == 5:
-            letter_F.append(x)
-        elif index % 26 == 6:
-            letter_G.append(x)
-        elif index % 26 == 7:
-            letter_H.append(x)
-        elif index % 26 == 8:
-            letter_I.append(x)
-        elif index % 26 == 9:
-            letter_J.append(x)
-        elif index % 26 == 10:
-            letter_K.append(x)
-        elif index % 26 == 11:
-            letter_L.append(x)
-        elif index % 26 == 12:
-            letter_M.append(x)
-        elif index % 26 == 13:
-            letter_N.append(x)
-        elif index % 26 == 14:
-            letter_O.append(x)
-        elif index % 26 == 15:
-            letter_P.append(x)
-        elif index % 26 == 16:
-            letter_Q.append(x)
-        elif index % 26 == 17:
-            letter_R.append(x)
-        elif index % 26 == 18:
-            letter_S.append(x)
-        elif index % 26 == 19:
-            letter_T.append(x)
-        elif index % 26 == 20:
-            letter_U.append(x)
-        elif index % 26 == 21:
-            letter_V.append(x)
-        elif index % 26 == 22:
-            letter_W.append(x)
-        elif index % 26 == 23:
-            letter_X.append(x)
-        elif index % 26 == 24:
-            letter_Y.append(x)
-        elif index % 26 == 25:
-            letter_Z.append(x)
+    letters = {
+        0: letter_A,
+        1: letter_B,
+        2: letter_C,
+        3: letter_D,
+        4: letter_E,
+        5: letter_F,
+        6: letter_G,
+        7: letter_H,
+        8: letter_I,
+        9: letter_J,
+        10: letter_K,
+        11: letter_L,
+        12: letter_M,
+        13: letter_N,
+        14: letter_O,
+        15: letter_P,
+        16: letter_Q,
+        17: letter_R,
+        18: letter_S,
+        19: letter_T,
+        20: letter_U,
+        21: letter_V,
+        22: letter_W,
+        23: letter_X,
+        24: letter_Y,
+        25: letter_Z,
+    }
+
+    for index, x in enumerate(character_array):
+        remainder = index % 26
+        letters[remainder].append(x)
 
     # Assign it to the dictionary
     letter_key["letter_A"] = letter_A

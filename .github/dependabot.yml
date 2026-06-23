@@ -3,17 +3,35 @@
 
 version: 2
 updates:
-  - package-ecosystem: pip
-    directory: "/"
-    schedule:
-      interval: daily
-    groups: # One big pull request
-      python-packages:
-        patterns:
-          - "*"
-  - package-ecosystem: "github-actions"
-    # Workflow files stored in the default location of `.github/workflows`
-    # You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.
-    directory: "/"
-    schedule:
-      interval: "weekly"
+    - package-ecosystem: pip
+      directory: "/"
+      cooldown:
+          default-days: 7
+      schedule:
+          interval: daily
+      groups: # One big pull request
+          python-packages:
+              patterns:
+                  - "*"
+    - package-ecosystem: "github-actions"
+      # Workflow files stored in the default location of `.github/workflows`
+      # You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.
+      directory: "/"
+      cooldown:
+          default-days: 7
+      schedule:
+          interval: "weekly"
+      groups:
+          actions-packages:
+              patterns:
+                  - "*"
+    - package-ecosystem: "npm"
+      directory: "/.github/linters"
+      cooldown:
+          default-days: 7
+      schedule:
+          interval: "weekly"
+      groups:
+          actions-packages:
+              patterns:
+                  - "*"

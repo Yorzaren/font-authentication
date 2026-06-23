@@ -7,7 +7,6 @@ I think there's a visual glitch so its not showing the correct chinese character
 in the BirdFont gui.
 """
 
-
 import json
 import os
 import shutil
