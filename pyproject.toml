@@ -52,3 +52,12 @@ source = ["."]
 
 [tool.coverage.report]
 fail_under = 80                 # Fail the test suite execution if total coverage drops below 80%
+exclude_also = [
+    # SEE: https://coverage.readthedocs.io/en/latest/excluding.html
+    # Comments to turn coverage on and off:
+    #      # no cover: start   /   # no cover: stop
+    'no cover: start(?s:.)*?no cover: stop',
+    # A pragma comment that excludes an entire file:
+    #      # pragma: exclude file
+    '\A(?s:.*# pragma: exclude file.*)\Z',
+]

@@ -7,7 +7,7 @@ Leaving this here if needed again.
 
 """
 
-# pragma: no cover
+# pragma: exclude file
 
 import requests
 from bs4 import BeautifulSoup

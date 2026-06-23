@@ -1,5 +1,6 @@
+# pragma: exclude file
 # flake8: noqa
-# pragma: no cover
+
 import font_generator.cjk as cjk
 import font_generator.zh as zh
 
