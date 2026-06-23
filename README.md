@@ -97,8 +97,6 @@ flask --app web run --debug
 
 Then you can read and navigate the pages.
 
-## Style / Linting / Unit Testing
-
 ### Python
 [![Tested with Pytest](https://img.shields.io/badge/Tested%20with-Pytest-red?style=for-the-badge)](https://docs.pytest.org/)
 
@@ -108,14 +106,28 @@ Run pytest from the root of the project.
 
 You can test for coverage using:
 ```text
-pytest --cov --cov-report=html
+python -m uv run pytest
 ```
 
-[![Code style: black](https://img.shields.io/badge/Code%20Style-Black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
+### Linter and Format
 
+```commandline
+python -m uv run ruff check .
+python -m uv run ruff format .
+```
 
 ```text
-isort --profile black .
-black --line-length 120 .
-flake8 --append-config=.github/linters/.flake8
+npx --prefix .github/linters/ prettier --write "**/*.{yaml,yml}" --config .github/linters/.prettierrc --ignore-path .github/linters/.prettierignore
+```
+
+### Update Requirements / Sync Enviroment
+
+```commandline
+python -m uv lock --upgrade && python -m uv sync
+```
+
+### Pre-commit
+
+```commandline
+python -m uv run pre-commit run --all-files
 ```
