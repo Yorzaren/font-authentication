@@ -4,6 +4,8 @@
 # to be used in a different script as a hard coded value.
 # Keep this just in case you need to regenerate it.
 
+# pragma: exclude file
+
 import csv
 
 output = ""

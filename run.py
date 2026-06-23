@@ -35,6 +35,8 @@ If that folder can't be found, it will default to the provided glyphs.
 
 """
 
+# pragma: exclude file
+
 parser = argparse.ArgumentParser(description="-------------------- Generate the key or svg files --------------------")
 # If not defined, generate the key and the svg files
 parser.add_argument("--key_only", action="store_true", help="Generate the key.txt only")

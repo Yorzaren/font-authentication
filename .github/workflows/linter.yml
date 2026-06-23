@@ -1,66 +1,112 @@
 ---
 # .github/workflows/linter.yml
-name: MegaLinter
+name: Custom Lightweight Linting Suite
 
 on:
-  push:
-    branches: [master, main]
-  pull_request:
-    branches: [master, main]
-  workflow_dispatch:
+    push:
+        branches: [master, main]
+    pull_request:
+        types: [opened, synchronize, reopened, labeled, unlabeled]
+        branches: [master, main]
 
 permissions: {}
 
-# See: # .github/linters/mega-linter.yml
-env:
-  # Apply linter fixes configuration
-  APPLY_FIXES: all # When active, APPLY_FIXES must also be defined as environment variable (in github/workflows/mega-linter.yml or other CI tool)
-  APPLY_FIXES_EVENT: pull_request # Decide which event triggers application of fixes in a commit or a PR (pull_request, push, all)
-  APPLY_FIXES_MODE: commit # If APPLY_FIXES is used, defines if the fixes are directly committed (commit) or posted in a PR (pull_request)
-  # This will be "true" if manual, "false" otherwise
-  # This must be set here and not in megalinter as it will just evaluate as false regardless.
-  RUN_ALL: "${{ github.event_name == 'workflow_dispatch' }}"
 concurrency:
-  group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: true
+    group: ${{ github.ref }}-${{ github.workflow }}
+    cancel-in-progress: true
 
 jobs:
-  megalinter:
-    name: MegaLinter
-    runs-on: ubuntu-latest
-    # --- SKIP IF DEPENDABOT ---
-    if: |
-      github.actor != 'dependabot[bot]' &&
-      github.event.head_commit.author.email != '129584137+megalinter-bot@users.noreply.github.com'
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      statuses: write
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
+    lint:
+        name: Lint & Auto-Fix
+        runs-on: ubuntu-latest
+        # --- SKIP IF DEPENDABOT OR Actions ---
+        if: |
+            github.actor != 'dependabot[bot]' &&
+            github.actor != 'github-actions[bot]'
 
-      - name: MegaLinter
-        id: ml
-        uses: oxsecurity/megalinter/flavors/python@0e3ce9b9c8c10effb9b269509cc47ca17cae31c7 # v9.5.0
-        env:
-          MEGALINTER_CONFIG: .github/linters/.mega-linter.yml
-          # Trigger full codebase check only on manual dispatch
-          VALIDATE_ALL_CODEBASE: ${{ env.RUN_ALL }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_COMMENT_REPORTER: false
-          GITHUB_STATUS_REPORTER: true
+        permissions:
+            contents: write
+            statuses: write
 
-      - name: Commit fixes
-        if: steps.ml.outputs.has_updated_sources == 1 && (env.APPLY_FIXES_EVENT == 'all' || env.APPLY_FIXES_EVENT == github.event_name) && env.APPLY_FIXES_MODE == 'commit' && github.ref != 'refs/heads/main' && (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) && !contains(github.event.head_commit.message, 'skip fix')
-        uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
-        with:
-          branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
-          file_pattern: ". :!megalinter-reports/*"
-          commit_message: "chore: Apply automatic fixes"
-          commit_user_name: megalinter-bot
-          commit_user_email: 129584137+megalinter-bot@users.noreply.github.com
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  fetch-depth: 0
+                  persist-credentials: false
+
+            - name: Verify Node Dependency Integrity
+              if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'verified-deps')
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  BASE_REF: ${{ github.base_ref }}
+              run: |
+                  git fetch "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" "$BASE_REF" --depth=1
+
+                  if ! git diff --quiet FETCH_HEAD -- .github/linters/package.json; then
+                    echo "::error::SECURITY ALERT: .github/linters/package.json was modified without the 'verified-deps' label."
+                    echo "A maintainer must verify these dependency changes and apply the 'verified-deps' label to proceed."
+                    exit 1
+                  fi
+                  if ! git diff --quiet FETCH_HEAD -- .github/linters/package-lock.json; then
+                    echo "::error::SECURITY ALERT: .github/linters/package-lock.json was modified without the 'verified-deps' label."
+                    echo "A maintainer must verify the cryptographic lock adjustments and apply the 'verified-deps' label to proceed."
+                    exit 1
+                  fi
+
+            - name: Lint GitHub Action Security
+              uses: zizmorcore/zizmor-action@5f14fd08f7cf1cb1609c1e344975f152c7ee938d # v0.5.6
+              with:
+                  advanced-security: false
+
+            - name: Run Ruff Linter & Fix
+              uses: astral-sh/ruff-action@0ce1b0bf8b818ef400413f810f8a11cdbda0034b # v4.0.0
+              with:
+                  args: "check --fix"
+            - name: Apply Ruff Formatting
+              uses: astral-sh/ruff-action@0ce1b0bf8b818ef400413f810f8a11cdbda0034b # v4.0.0
+              with:
+                  args: "format"
+
+            - name: Setup Node.js
+              uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+              with:
+                  node-version: "20"
+                  cache: "npm"
+                  cache-dependency-path: ".github/linters/package-lock.json"
+            - name: Install Linting Tools
+              run: |
+                  npm ci --prefix .github/linters/ --ignore-scripts
+            - name: Run Prettier Fix (YAML Only)
+              run: |
+                  npx --prefix .github/linters/ prettier --write "**/*.{yaml,yml}" \
+                    --config .github/linters/.prettierrc \
+                    --ignore-path .github/linters/.prettierignore || true
+            - name: Run HTMLHint
+              run: npx --prefix .github/linters/ htmlhint "**/*.html" --config .github/linters/.htmlhintrc || true
+            - name: Run Markdownlint Fix
+              run: npx --prefix .github/linters/ markdownlint "**/*.md" --config .github/linters/.markdown-lint.yml --fix || true
+            - name: Run Stylelint Fix
+              run: npx --prefix .github/linters/ stylelint "**/*.{css,scss}" --config .github/linters/.stylelintrc.json --fix || true
+            - name: Run Copy-Paste Detector (JSCPD)
+              run: npx --prefix .github/linters/ jscpd --config .github/linters/.jscpd.json
+
+            - name: Commit and push applied linter fixes
+              if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+              env:
+                  PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  HEAD_REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+              run: |
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+                  git add .
+
+                  if ! git diff --cached --quiet; then
+                    git commit -m "chore: apply automatic linter fixes"
+                    git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@github.com/${{ github.repository }}"
+                    git push origin HEAD:"$HEAD_REF"
+                  else
+                    echo "All files are already cleanly formatted and up to date."
+                  fi

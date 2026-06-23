@@ -1,3 +1,4 @@
+# pragma: exclude file
 # flake8: noqa
 
 import font_generator.cjk as cjk
