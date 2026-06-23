@@ -1,4 +1,8 @@
 {
 	"threshold": 3,
-	"ignore": ["**/tests/data/**"]
+	"ignore": [
+		"**/tests/data/**",
+		"**/node_modules/**",
+		".github"
+	]
 }
