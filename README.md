@@ -38,7 +38,7 @@ Navigate to the folder
 ```commandline
 cd font-authentication
 ```
-Install the dependencies with (uv)[https://docs.astral.sh/uv/getting-started/installation/]
+Install the dependencies with [uv](https://docs.astral.sh/uv/getting-started/installation/)
 ```commandline
 python -m uv sync --no-dev
 ```
