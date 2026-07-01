@@ -16,8 +16,8 @@ dev = [
     "pytest-cov==7.1.0",
     "pytest-html==4.2.0",
     "pytest-order==1.5.0",
-    "ruff==0.15.18",
-    "uv==0.11.23"
+    "ruff==0.15.19",
+    "uv==0.11.24"
 ]
 
 # --- RUFF CONFIGURATION ---
